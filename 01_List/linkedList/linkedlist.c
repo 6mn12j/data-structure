@@ -2,21 +2,7 @@
 
 void deleteLinkedList(LinkedList* pList)
 {
-	if(pList == NULL)
-		return ;
-	ListNode *pDelNode;
-	ListNode *pTempNode;
-
-	pTempNode = pList->headerNode.pLink;
-	pDelNode = 0;
-
-	while (pTempNode)
-	{
-		pDelNode = pTempNode;
-		pTempNode = pTempNode->pLink;
-		free(pDelNode);
-		pDelNode = 0;
-	}
+	clearLinkedList(pList);
 	free(pList);
 	pList=0;
 	pList->currentElementCount=0;
@@ -39,11 +25,12 @@ void clearLinkedList(LinkedList* pList)
 		pDelNode = pTempNode;
 		pTempNode = pTempNode->pLink;
 		free(pDelNode);
-		pDelNode->data = 0;
-		pDelNode->pLink = 0;
+		// pDelNode->data = 0;
+		// pDelNode->pLink = 0;
 		pDelNode = 0;
 
 	}
+	pList->headerNode.pLink = NULL;
 	pList->currentElementCount=0;
 	return ;
 
@@ -51,13 +38,13 @@ void clearLinkedList(LinkedList* pList)
 
 int getLinkedListLength(LinkedList* pList)
 {
-	return pList->currentElementCount;
+	return pList->currentElementCount ;
 }
 
 int getLLElement(LinkedList* pList, int position)
 {
 
-	if (position > pList->currentElementCount)
+	if (position < 0 || position >= pList->currentElementCount)
 		return (-1);
 	ListNode *pPreNode = 0;
 
@@ -69,6 +56,9 @@ int getLLElement(LinkedList* pList, int position)
 
 int removeLLElement(LinkedList* pList, int position)
 {
+	if (position < 0 || position >= pList->currentElementCount)
+		return (-1);
+
 	ListNode *pDelNode = 0;
 	ListNode *pPreNode = 0;
 
@@ -79,9 +69,11 @@ int removeLLElement(LinkedList* pList, int position)
 	pPreNode-> pLink = pDelNode->pLink;
 	free(pPreNode);
 	pPreNode = 0;
+
 	pList->currentElementCount--;
 	return (1);
 }
+
 int addLLElement(LinkedList* pList, int position, int element)
 {
 	if (position < 0 || position > pList->currentElementCount)
@@ -90,6 +82,7 @@ int addLLElement(LinkedList* pList, int position, int element)
 	ListNode *pNewNode = 0;
 	ListNode *pPreNode = 0;
 
+	//TODO: NULL가드
 	pNewNode = (ListNode *)malloc(sizeof(ListNode));
 	pNewNode->data = element;
 
@@ -112,9 +105,13 @@ LinkedList* createLinkedList()
 	LinkedList *newLinkedList = 0;
 	if (!(newLinkedList = (LinkedList *)malloc(sizeof(LinkedList))))
 		return (0);
-	newLinkedList -> currentElementCount = 0;
-	newLinkedList -> headerNode = *(ListNode *)malloc(sizeof(ListNode));
 
+	//LinkedList 만들면 headerNode가 이미 만들어져서 여기 x.
+	//*(ListNode *)malloc(sizeof(ListNode)); * 값으로 받아오면 free 할때 xx 값만 저장함.
+	//newLinkedList -> headerNode = *(ListNode *)malloc(sizeof(ListNode));
+
+	newLinkedList -> currentElementCount = 0;
+	newLinkedList -> headerNode.pLink = NULL;
 	return newLinkedList;
 
 }

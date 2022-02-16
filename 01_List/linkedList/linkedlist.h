@@ -14,6 +14,8 @@ typedef struct LinkedListType
 {
 	int currentElementCount;
 	ListNode headerNode;
+	//ListNode *headerNode;
+
 } LinkedList;
 
 LinkedList* createLinkedList();

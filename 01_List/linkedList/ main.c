@@ -1,6 +1,8 @@
 #include "linkedlist.h"
  void iterateLinkedList(LinkedList* pList)
  {
+	if(pList->headerNode.pLink == NULL)
+	 	return ;
 	ListNode* pNode = NULL;
 	int count = 0;
 	if (pList != NULL) {
@@ -36,19 +38,23 @@
 	addLLElement(myLinkedList,2,10);
 	iterateLinkedList(myLinkedList);
 
+	clearLinkedList(myLinkedList );
+	printf("clear\n");
+	printf("이거 %d\n",myLinkedList->currentElementCount);
 
-	deleteLinkedList(myLinkedList);
-	iterateLinkedList(myLinkedList);
+
+	//deleteLinkedList(myLinkedList);
+	//iterateLinkedList(myLinkedList);
 
 
-	myLinkedList2 = createLinkedList();
-	addLLElement(myLinkedList2 ,0,1);
-	addLLElement(myLinkedList2 ,1,2);
+	// myLinkedList2 = createLinkedList();
+	// addLLElement(myLinkedList2 ,0,1);
+	// addLLElement(myLinkedList2 ,1,2);
 
-	clearLinkedList(myLinkedList2 );
-	printf("clear 노드갯수 : %d\n",myLinkedList2 ->currentElementCount);
+	// clearLinkedList(myLinkedList2 );
+	// printf("clear 노드갯수 : %d\n",myLinkedList2 ->currentElementCount);
 
-	iterateLinkedList(myLinkedList2 );
+	// iterateLinkedList(myLinkedList2 );
 
 
 

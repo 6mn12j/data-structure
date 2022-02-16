@@ -50,6 +50,7 @@
 	printf("%d\n",getArrayListLength(myList));
 
 
+
 	return (0);
 
 }
