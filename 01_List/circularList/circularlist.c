@@ -34,7 +34,7 @@ void		clearCircularList(CircularList *pList)
 
 }
 
-int	getCLElement(CircularList *pList, int position)
+ListNode	*getCLElement(CircularList *pList, int position)
 {
 	ListNode *pPreNode;
 	pPreNode = pList->headerNode.pLink;
@@ -44,7 +44,7 @@ int	getCLElement(CircularList *pList, int position)
 	for(int i = 0 ; i < position ; i ++){
 		pPreNode = pPreNode->pLink;
 	}
-	return (pPreNode->data);
+	return (pPreNode);
 }
 
 int	removeCLElement(CircularList *pList, int position)
@@ -116,8 +116,9 @@ int	addCLElement(CircularList *pList, int position, int element)
 
 	pNewNode -> data = element;
 	pNewNode -> pLink = 0;
-	//1. 첫번째 노드 추가이고 공백 리스트일때
+	//1. 첫번째 노드추가이고 공백 리스트일때
 	//2. 첫번째 노드추가 이고 공백 리스트가 아닐때
+
 	//3. 첫번째 노드추가가 아닐떄
 
 	if(position == 0){
@@ -125,7 +126,6 @@ int	addCLElement(CircularList *pList, int position, int element)
 		{
 			pList->headerNode.pLink = pNewNode;
 			pNewNode->pLink = pNewNode;
-			//printf("%d!! new %d\n",pList->headerNode.data,pNewNode->data);
 			pList->currentElementCount++;
 			return (0);
 		}

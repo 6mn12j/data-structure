@@ -29,16 +29,18 @@ void clearDoublyList(DoublyList* pList)
 	DoublyListNode *pDelNode;
 	DoublyListNode *pPreNode;
 
-	pPreNode = &(pList->headerNode);
+	pPreNode = pList->headerNode.pLLink;
 	for(int i = 0 ; i < pList->currentElementCount; i++)
 	{
 		pDelNode = pPreNode;
 		pPreNode = pPreNode->pLLink;
+		free(pDelNode);
 		pDelNode=0;
 	}
+	pList->headerNode.pRLink = &pList->headerNode;
+	pList->headerNode.pLLink = &pList->headerNode;
 	pList->currentElementCount = 0;
-	pList->headerNode.pRLink = 0;
-	pList->headerNode.pLLink = 0;
+
 	return ;
 }
 
@@ -55,11 +57,12 @@ int removeDLElement(DoublyList* pList, int position)
 		pPreNode = pPreNode->pRLink;
 	pDelNode = pPreNode->pRLink;
 	pPreNode->pRLink = pDelNode->pRLink;
-	pDelNode->pLLink = pPreNode;
+	pPreNode->pRLink->pLLink = pPreNode;
+	//pDelNode->pLLink = pPreNode;
 
 	free(pDelNode);
 	pDelNode = 0;
-	pList->currentElementCount --;
+	pList -> currentElementCount--;
 	return (1);
 }
 
@@ -73,8 +76,8 @@ int addDLElement(DoublyList* pList, int position, int element)
 
 	if(!(pNewNode = (DoublyListNode*)malloc(sizeof(DoublyListNode))))
 		return (-1);
-	if(!(pPreNode = (DoublyListNode*)malloc(sizeof(DoublyListNode))))
-		return (-1);
+	// if(!(pPreNode = (DoublyListNode*)malloc(sizeof(DoublyListNode))))
+	// 	return (-1);
 
 	pPreNode = &(pList->headerNode);
 	pNewNode->data = element;
@@ -85,7 +88,7 @@ int addDLElement(DoublyList* pList, int position, int element)
 	pNewNode->pLLink = pPreNode;
 	pNewNode->pRLink = pPreNode->pRLink;
 	pPreNode->pRLink = pNewNode;
-	pPreNode->pLLink = pNewNode->pLLink;
+	pNewNode->pRLink->pLLink = pNewNode;
 
 
 	pList->currentElementCount++;

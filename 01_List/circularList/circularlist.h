@@ -21,8 +21,8 @@ CircularList 	*createCircularList();
 int			addCLElement(CircularList *pList, int position, int element);
 
 int			removeCLElement(CircularList *pList, int position);
-//ListNode	*getCLElement(CircularList *pList, int position);
-int	getCLElement(CircularList *pList, int position);
+ListNode	*getCLElement(CircularList *pList, int position);
+//int	getCLElement(CircularList *pList, int position);
 
 void		clearCircularList(CircularList *pList);
 int			getCircularListLength(CircularList *pList);
